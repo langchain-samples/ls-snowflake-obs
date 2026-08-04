@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+node_modules/
+.DS_Store
+
+# Secrets and key material must never be committed.
+.env
+.env.*
+!.env.example
+*.p8
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+credentials.json
+token.json
+
+# Bridge cursor state (local to each deployment)
+.snowflake_bridge_cursor

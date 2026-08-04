@@ -1,0 +1,43 @@
+[project]
+name = "snowflake-obs"
+version = "0.1.0"
+description = "Bridge Snowflake AI Observability spans into LangSmith via OTLP/HTTP"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "cryptography>=42.0",
+    "opentelemetry-exporter-otlp-proto-http>=1.27",
+    "opentelemetry-sdk>=1.27",
+    "snowflake-connector-python>=3.12",
+]
+
+[project.scripts]
+snowflake-obs = "snowflake_obs.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.6",
+    "ty>=0.0.66",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.14"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+# ANN carries the annotation-coverage requirement; ty has no strict mode.
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF", "ANN"]
+# Do not widen to all of ANN: the exporter and connector boundaries are
+# genuinely dynamically typed.
+ignore = ["ANN401"]
+
+# ty infers python-version from project.requires-python.
+[tool.ty.terminal]
+error-on-warning = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
